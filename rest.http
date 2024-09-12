@@ -1,0 +1,169 @@
+GET http://localhost:3001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDY2NjYsImV4cCI6MTcyNTIxMDI2NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.39XyU-q2tM-Ayp4OPcF7Hoy9X1ai45nikMTaKXWIvO8
+
+###Login Route
+POST http://localhost:3001/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "krawadh1@gmail.com",
+  "password": "password",
+    "role":"Admin"
+}
+
+
+###Register Route
+POST http://localhost:3001/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Awadh",      
+  "lastName": "Kumar",       
+  "email": "sfdsf@dfasf.com",
+  "phone": "7011616298",     
+  "password": "password",    
+  "gender": "Male",
+  "role": "Admin"
+}
+
+###Refresh token Route
+POST http://localhost:3001/api/v1/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUwMzAyNjEsImV4cCI6MTc1NjU4Nzg2MSwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0._S7yzG_q7TPildGJfDSLyQopTH2X8NEUZioCAUAtAFg"
+}
+
+###Logout Route
+GET  http://localhost:3001/api/v1/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUwMzQ2MDAsImV4cCI6MTc1NjU5MjIwMCwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.G4l4Q7gbH6Ur7N3gl_YnBGZbo3MOiW_wdxgTwebQHfY"
+}
+
+
+
+#########----------- Seating Route ------------########
+### Add Seat Route
+
+POST http://localhost:3001/api/v1/seating
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDcxMTYsImV4cCI6MTcyNTIwNzE0NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.L1N9E-aIJHoCi8xWocenz-CSQQVECm6vw9YGjGCPZBk
+Content-Type: application/json
+
+{
+    "seatNumber": "A6",
+    "seatType": "Normal", 
+    "isAvailable": true, 
+    "reservedBy": "66d16cb8295e0d538fe95dae",
+    "reservationStartTime":"2024-08-31T10:00:00.000Z",
+    "reservationEndTime":"2024-09-30T10:00:00.000Z",
+    "createdBy":"66d16c36295e0d538fe95dab"
+}
+
+
+### Get all Seat Route
+
+GET http://localhost:3001/api/v1/seating
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUzNzY2MjUsImV4cCI6MTcyNTQ2MzAyNSwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.LENFIlDiqDaK8OXKTqQ1fzQM9sYQwBFh_sUCuzf2XSg
+
+### Get Seat by Id Route
+
+GET http://localhost:3001/api/v1/seating/66d32f5cd8fb070fc5788847
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUzNzYyNjEsImV4cCI6MTcyNTM3NjI5MSwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.0zo7PuZAWc0T9MLsGhEKSCpdVYrsOoZR5IrCmSG6Q7w
+
+
+### Update Seat By Id Route
+
+PATCH  http://localhost:3001/api/v1/seating/66d3353fd8fb070fc578884b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDcxMTYsImV4cCI6MTcyNTIwNzE0NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.L1N9E-aIJHoCi8xWocenz-CSQQVECm6vw9YGjGCPZBk
+Content-Type: application/json
+
+{
+    "seatNumber": "A3",
+    "seatType": "Normal",
+    "isAvailable": false, 
+    "reservedBy": "66d16cb8295e0d538fe95dae",
+    "reservationStartTime":"2024-09-01T10:00:00.000Z",
+    "reservationEndTime":"2024-08-31T10:00:00.000Z",
+    "createdBy":"66d16c36295e0d538fe95dab"
+}
+
+### Remove Seat By Id Route
+
+DELETE    http://localhost:3001/api/v1/seating/66d439e1bd2f3305df5d6ddb
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDcxMTYsImV4cCI6MTcyNTIwNzE0NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.L1N9E-aIJHoCi8xWocenz-CSQQVECm6vw9YGjGCPZBk
+
+
+######-------- Membership Route -----------------######
+
+### Add membership Route
+
+POST http://localhost:3001/api/v1/membership
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjU2MTM5MDQsImV4cCI6MTcyNTcwMDMwNCwiYXVkIjoiNjZkNWNkN2M0ODU1OTI0ODRmYjMzOTdlIn0.K0ChFT_ZQcEXyrnjsJ9vmOLMn-BiGS__mpPJHqXtXIU
+Content-Type: application/json
+
+# {
+#   "membershipType":"16-Hours",
+# "fee":"53543",
+# "duration":"Weekly",
+# "description":"This is weekly fee",
+# "createdBy":"66d5cd7c485592484fb3397e"
+# }
+
+{
+  "membershipType":"8-Hours",
+  "fee": 12,
+  "duration": "Monthly",
+  "description": "This is the monthly subscription.",
+  "isActive": true,
+  "createdBy":"66d16c36295e0d538fe95dab"
+}
+
+
+
+
+
+### Get all member Route
+
+GET http://localhost:3001/api/v1/membership
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDcxMTYsImV4cCI6MTcyNTIwNzE0NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.L1N9E-aIJHoCi8xWocenz-CSQQVECm6vw9YGjGCPZBk
+
+
+### Get member by Id Route
+
+GET http://localhost:3001/api/v1/membership/66d466c2b280f8613c39e74c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDcxMTYsImV4cCI6MTcyNTIwNzE0NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.L1N9E-aIJHoCi8xWocenz-CSQQVECm6vw9YGjGCPZBk
+
+
+### Update member By Id Route
+
+PATCH  http://localhost:3001/api/v1/membership/66d466c2b280f8613c39e74c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDcxMTYsImV4cCI6MTcyNTIwNzE0NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.L1N9E-aIJHoCi8xWocenz-CSQQVECm6vw9YGjGCPZBk
+Content-Type: application/json
+
+{
+  "membershipType":"9-Hours",
+  "fee": 12,
+  "duration": "monthly",
+  "description": "This is the monthly subscription.",
+  "isActive": true,
+  "createdBy":"66d16c36295e0d538fe95dab"
+}
+
+### Remove member By Id Route
+
+DELETE  http://localhost:3001/api/v1/membership/66d46753389b2dde52946675
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDcxMTYsImV4cCI6MTcyNTIwNzE0NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.L1N9E-aIJHoCi8xWocenz-CSQQVECm6vw9YGjGCPZBk
+
+
+### Get all Members Route
+
+GET http://localhost:3001/api/v1/member
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjU4MTQ3MDEsImV4cCI6MTcyNTkwMTEwMSwiYXVkIjoiNjZkNWNkN2M0ODU1OTI0ODRmYjMzOTdlIn0.8rWPlYwvfRmywvNv0DoxZrzS-Nc3OEgCS5rofiSfbDQ
+
+
+### Get all Member By Id Route
+
+http://localhost:3001/api/v1/member/66df0d4da142e7cf4f6fb34d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjU4MTQ3MDEsImV4cCI6MTcyNTkwMTEwMSwiYXVkIjoiNjZkNWNkN2M0ODU1OTI0ODRmYjMzOTdlIn0.8rWPlYwvfRmywvNv0DoxZrzS-Nc3OEgCS5rofiSfbDQ
