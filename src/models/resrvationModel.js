@@ -4,7 +4,7 @@ const reservationSchema = new mongoose.Schema(
   {
     seat: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Seat",
+      ref: "Seating",
       required: true,
     },
     reservedBy: {

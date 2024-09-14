@@ -167,3 +167,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjU4MTQ3M
 
 http://localhost:3001/api/v1/member/66df0d4da142e7cf4f6fb34d
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjU4MTQ3MDEsImV4cCI6MTcyNTkwMTEwMSwiYXVkIjoiNjZkNWNkN2M0ODU1OTI0ODRmYjMzOTdlIn0.8rWPlYwvfRmywvNv0DoxZrzS-Nc3OEgCS5rofiSfbDQ
+
+
+### Get all Member By Id Route
+
+
+http://localhost:3000/api/v1/member/assignSeat/66e1854e7cef0cda8ba54da3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjU4MTQ3MDEsImV4cCI6MTcyNTkwMTEwMSwiYXVkIjoiNjZkNWNkN2M0ODU1OTI0ODRmYjMzOTdlIn0.8rWPlYwvfRmywvNv0DoxZrzS-Nc3OEgCS5rofiSfbDQ

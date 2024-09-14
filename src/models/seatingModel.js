@@ -18,8 +18,7 @@ const seatingSchema = new mongoose.Schema(
     },
     reservedBy: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: String,
       },
     ],
     createdBy: {

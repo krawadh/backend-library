@@ -1,4 +1,4 @@
-import MembershipService from "../services/MembershipService.js";
+import MembershipService from "../services/membershipService.js";
 
 export const addMembership = async (req, res, next) => {
   try {
