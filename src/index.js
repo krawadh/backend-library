@@ -14,9 +14,8 @@ import { verifyAccessToken } from "./utils/jwt.js";
 dotenv.config({});
 
 import connectDb from "./utils/db.js";
-import { port } from "./config.js";
+import { port, requestOrigin } from "./config.js";
 const app = express();
-
 // Some middleware
 app.use(morgan("dev")); // log requests and errors in development mode
 app.use(express.json());
@@ -25,7 +24,7 @@ app.use(cookieParser());
 app.use(cors());
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: requestOrigin,
   credentials: true,
 };
 
