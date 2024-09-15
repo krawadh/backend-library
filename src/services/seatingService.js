@@ -24,8 +24,10 @@ class SeatService {
         createdBy,
       } = value;
 
-      const seat = await Seating.findOne({ seatNumber });
-
+      const seat = await Seating.findOne({
+        seatNumber,
+        isDeleted: false,
+      });
       console.log(seat);
       if (seat) {
         //throw createError(401, `Seat already exist with this number: ${seatNumber}`); //or
@@ -59,6 +61,7 @@ class SeatService {
           { seatNumber: { $regex: keyword, $options: "i" } },
           //{ description: { $regex: keyword, $options: "i" } },
         ],
+        isDeleted: false,
       };
       const seats = await Seating.find(query)
         .populate({
@@ -127,7 +130,9 @@ class SeatService {
   static async removeSeatById(req) {
     try {
       const id = req.params.id;
-      const seatDeletedRs = await Seating.findByIdAndDelete(id);
+      const seatDeletedRs = await Seating.findByIdAndUpdate(id, {
+        isDeleted: true,
+      });
       if (!seatDeletedRs) throw createError.NotFound();
       return seatDeletedRs;
     } catch (error) {

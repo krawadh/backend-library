@@ -5,7 +5,7 @@ const seatingSchema = new mongoose.Schema(
     seatNumber: {
       type: String,
       required: [true, "Seat number is required"],
-      unique: true,
+      //unique: true,
     },
     seatType: {
       type: String,
@@ -25,6 +25,10 @@ const seatingSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       require: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }
