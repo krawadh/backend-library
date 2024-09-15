@@ -159,7 +159,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDcxM
 
 ### Get all Members Route
 
-GET http://localhost:3001/api/v1/member
+GET http://localhost:3000/api/v1/member
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjU4MTQ3MDEsImV4cCI6MTcyNTkwMTEwMSwiYXVkIjoiNjZkNWNkN2M0ODU1OTI0ODRmYjMzOTdlIn0.8rWPlYwvfRmywvNv0DoxZrzS-Nc3OEgCS5rofiSfbDQ
 
 

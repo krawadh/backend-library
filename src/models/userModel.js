@@ -93,5 +93,11 @@ userSchema.methods.isValidPassword = async function (password) {
     throw error;
   }
 };
-
+userSchema.virtual("reservations", {
+  ref: "Reservation", // The model to use
+  localField: "_id", // User's _id
+  foreignField: "reservedBy", // Field in Reservation that refers to the user
+});
+userSchema.set("toJSON", { virtuals: true });
+userSchema.set("toObject", { virtuals: true });
 export const User = mongoose.model("User", userSchema);

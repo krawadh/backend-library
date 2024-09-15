@@ -61,6 +61,13 @@ class memberService {
           path: "membership",
           select: "membershipType fee duration",
         })
+        .populate({
+          path: "reservations", // Use the virtual to populate reservations
+          populate: {
+            path: "seat", // Inside the reservation, populate the seat information
+            select: "seatNumber seatType isAvailable", // Optional: select specific fields
+          },
+        })
         .sort({ createdAt: -1 });
 
       if (!members || members.length === 0) throw createError.NotFound();
