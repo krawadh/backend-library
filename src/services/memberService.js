@@ -86,6 +86,13 @@ class memberService {
           path: "membership",
           select: "membershipType fee duration",
         })
+        .populate({
+          path: "reservations", // Use the virtual to populate reservations
+          populate: {
+            path: "seat", // Inside the reservation, populate the seat information
+            select: "seatNumber seatType isAvailable", // Optional: select specific fields
+          },
+        })
         .sort({ createdAt: -1 });
       if (!member) throw createError.NotFound();
       return member;
@@ -120,7 +127,8 @@ class memberService {
         }
       );
       if (!updatedRs) throw createError.NotFound();
-      return updatedRs;
+      return memberService.getMemberByid(req);
+      //return updatedRs;
     } catch (error) {
       if (error.isJoi === true) error.status = 422;
       throw error;

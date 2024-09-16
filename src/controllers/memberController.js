@@ -3,11 +3,11 @@ import reservationService from "../services/reservationService.js";
 
 export const addMember = async (req, res, next) => {
   try {
-    const seat = await memberService.add(req);
+    const member = await memberService.add(req);
     return res.status(201).json({
       message: "Member created successfully.",
       success: true,
-      seat,
+      member,
     });
   } catch (error) {
     console.log(error.messages);
