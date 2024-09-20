@@ -83,6 +83,11 @@ class AuthService {
       }
       const accessToken = await signAccessToken(user.id);
       const refreshToken = await signRefreshToken(user.id);
+
+      //refresh token update to the user
+      user.refreshToken = refreshToken;
+      await user.save({ validateBeforeSave: false });
+
       const generetedUser = {
         id: user._id,
         firstName: user.firstName,
@@ -127,9 +132,21 @@ class AuthService {
 
   static async logout(req) {
     try {
-      const { refreshToken } = req.body;
-      if (!refreshToken) throw createError.BadRequest();
-      const userId = await verifyRefreshToken(refreshToken);
+      const { refreshToken, userId } = req.body;
+
+      // if (!refreshToken) throw createError.BadRequest();
+      // const userId = await verifyRefreshToken(refreshToken);
+      await User.findByIdAndUpdate(
+        userId,
+        {
+          $unset: {
+            refreshToken: 1, // this removes the field from document
+          },
+        },
+        {
+          new: true,
+        }
+      );
 
       // client.DEL(userId, (err, val) => {
       //   if (err) {
@@ -141,6 +158,7 @@ class AuthService {
       // });
       return "";
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }

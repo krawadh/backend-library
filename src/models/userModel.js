@@ -66,6 +66,9 @@ const userSchema = new mongoose.Schema(
     membershipExpiry: {
       type: Date,
     },
+    refreshToken: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

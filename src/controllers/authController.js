@@ -26,9 +26,14 @@ export const login = async (req, res, next) => {
   //const { email, password, role } = req.body;
   try {
     const { accessToken, refreshToken, user } = await AuthService.login(req);
+    const options = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+    };
     res
       .status(200)
-      .cookie("accessToken", accessToken, {
+      /*.cookie("accessToken", accessToken, {
         maxAge: 1 * 24 * 60 * 60 * 1000, // 1day
         httpsOnly: true,
         sameSite: "strict",
@@ -38,7 +43,9 @@ export const login = async (req, res, next) => {
         httpOnly: true,
         sameSite: "strict",
         secure: true, // Ensure this is true if using HTTPS
-      })
+      })*/
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
       .json({
         message: `Welcome back ${user.firstName} ${user.lastName}`,
         user,
@@ -56,20 +63,26 @@ export const refreshToken = async (req, res, next) => {
     const { accessToken, refreshToken, user } = await AuthService.refreshToken(
       req
     );
-
+    const options = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+    };
     res
       .status(200)
-      .cookie("accessToken", accessToken, {
-        maxAge: 1 * 24 * 60 * 60 * 1000, // 1day
-        httpsOnly: true,
-        sameSite: "strict",
-      })
-      .cookie("refreshToken", refreshToken, {
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        httpOnly: true,
-        sameSite: "strict",
-        secure: true, // Ensure this is true if using HTTPS
-      })
+      // .cookie("accessToken", accessToken, {
+      //   maxAge: 1 * 24 * 60 * 60 * 1000, // 1day
+      //   httpsOnly: true,
+      //   sameSite: "strict",
+      // })
+      // .cookie("refreshToken", refreshToken, {
+      //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      //   httpOnly: true,
+      //   sameSite: "strict",
+      //   secure: true, // Ensure this is true if using HTTPS
+      // })
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
       .json({
         message: `Welcome back ${user.firstName} ${user.lastName}`,
         user,
@@ -82,27 +95,28 @@ export const refreshToken = async (req, res, next) => {
 
 export const logout = async (req, res, next) => {
   try {
-    //const val = await AuthService.logout(req);
-    //console.log(val);
-    // res
-    //   .status(204)
-    //   .cookie("accessToken", "", { maxAge: 0 })
-    //   .cookie("refreshToken", "", { maxAge: 0 })
-    //   .json({
-    //     message: "Logged out",
-    //     success: true,
-    //   });
+    const val = await AuthService.logout(req);
+
     try {
-      return res
-        .status(200)
-        .cookie("accessToken", "", { maxAge: 0 })
-        .cookie("refreshToken", "", { maxAge: 0 })
-        .json({
-          message: "Logged out successfully.",
-          success: true,
-        });
+      const options = {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+      };
+      return (
+        res
+          .status(200)
+          // .cookie("accessToken", "", { maxAge: 0 })
+          // .cookie("refreshToken", "", { maxAge: 0 })
+          .clearCookie("accessToken", options)
+          .clearCookie("refreshToken", options)
+          .json({
+            message: "Logged out successfully.",
+            success: true,
+          })
+      );
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   } catch (error) {
     next(error);

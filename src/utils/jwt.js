@@ -1,14 +1,19 @@
 import JWT from "jsonwebtoken";
 import createError from "http-errors";
 //const client = require("./init_redis");
-import { jwtAccessSecret, jwtRefreshSecret } from "../config.js";
+import {
+  jwtAccessSecret,
+  jwtRefreshSecret,
+  jwtAccessTokenExpiry,
+  jwtRefreshTokenExpiry,
+} from "../config.js";
 const jwtService = {
   signAccessToken: (userId) => {
     return new Promise((resolve, reject) => {
       const payload = {};
       const secret = jwtAccessSecret;
       const options = {
-        expiresIn: "1d",
+        expiresIn: jwtAccessTokenExpiry,
         //issuer: "pickurpage.com",
         audience: userId,
       };
@@ -41,7 +46,7 @@ const jwtService = {
       const payload = {};
       const secret = jwtRefreshSecret;
       const options = {
-        expiresIn: "1y",
+        expiresIn: jwtRefreshTokenExpiry,
         //issuer: "pickurpage.com",
         audience: userId,
       };
