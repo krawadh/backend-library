@@ -9,6 +9,7 @@ const configVariable = {
   jwtAccessTokenExpiry: process.env.ACCESS_TOKEN_EXPIRY || "1d",
   jwtRefreshTokenExpiry: process.env.REFRESH_TOKEN_EXPIRY || "10d",
   requestOrigin: process.env.ORIGIN || "http://localhost:5173",
+  dbName: process.env.DB_NAME,
 };
 
 export const {
@@ -19,4 +20,5 @@ export const {
   requestOrigin,
   jwtAccessTokenExpiry,
   jwtRefreshTokenExpiry,
+  dbName,
 } = configVariable;

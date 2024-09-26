@@ -17,8 +17,6 @@ export const register = async (req, res, next) => {
   } catch (error) {
     console.log(error.messages);
     next(error);
-
-    //res.status(500).json({ error: error.message });
   }
 };
 
@@ -119,6 +117,20 @@ export const logout = async (req, res, next) => {
       console.log(error.message);
     }
   } catch (error) {
+    next(error);
+  }
+};
+
+export const updateProfile = async (req, res, next) => {
+  try {
+    const user = await AuthService.updateProfile(req);
+    return res.status(200).json({
+      message: "Profile updated successfully.",
+      user,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error.messages);
     next(error);
   }
 };

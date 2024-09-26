@@ -2,11 +2,11 @@ GET http://localhost:3001
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDY2NjYsImV4cCI6MTcyNTIxMDI2NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.39XyU-q2tM-Ayp4OPcF7Hoy9X1ai45nikMTaKXWIvO8
 
 ###Login Route
-POST http://localhost:3001/api/v1/auth/login
+POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "email": "krawadh1@gmail.com",
+  "email": "krawadh6@gmail.com",
   "password": "password",
     "role":"Admin"
 }

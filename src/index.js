@@ -18,15 +18,21 @@ import { port, requestOrigin } from "./config.js";
 const app = express();
 // Some middleware
 app.use(morgan("dev")); // log requests and errors in development mode
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "16kb" }));
+app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(express.static("public"));
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: requestOrigin,
+    //credentials: true,
+  })
+);
 
-const corsOptions = {
-  origin: requestOrigin,
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: requestOrigin,
+//   credentials: true,
+// };
 
 app.get("/", verifyAccessToken, async (req, res, next) => {
   res.send("Hello from express.");
@@ -36,6 +42,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/seating", seatingRoutes);
 app.use("/api/v1/membership", memberShipRoutes); //verifyAccessToken
 app.use("/api/v1/member", memberRoutes);
+
 //Error handler
 app.use(async (req, res, next) => {
   //const error = new Error("Not found");
@@ -45,12 +52,11 @@ app.use(async (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  console.log(err);
   res.status(err.status || 500);
   res.send({
-    error: {
-      status: err.status || 500,
-      message: err.message,
-    },
+    status: err.status || 500,
+    message: err.message,
   });
 });
 

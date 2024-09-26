@@ -105,7 +105,8 @@ class memberService {
     try {
       const id = req.params.id;
       const value = req.body;
-      if (value.email && value.email != undefined) {
+      if (!value.email) throw createError.NotAcceptable("Email is required!");
+      if (value.email && value.email !== undefined && value.email !== "") {
         const email = value.email;
         const existingEmail = await User.findOne({
           $and: [

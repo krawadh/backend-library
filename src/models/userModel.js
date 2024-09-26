@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema(
         type: String,
         default: "",
       },
+      profilePhotoPublicId: { type: String }, // Cloudinary public_id for deletion
     },
     membership: {
       type: mongoose.Schema.Types.ObjectId,
@@ -76,7 +77,11 @@ const userSchema = new mongoose.Schema(
 userSchema.pre("save", async function (next) {
   try {
     /* 
-    Here first checking if the document is new by using a helper of mongoose .isNew, therefore, this.isNew is true if document is new else false, and we only want to hash the password if its a new document, else  it will again hash the password if you save the document again by making some changes in other fields incase your document contains other fields.
+    Here first checking if the document is new by using a helper of mongoose .isNew, 
+    therefore, this.isNew is true if document is new else false, and we only want to 
+    hash the password if its a new document, else  it will again hash the password 
+    if you save the document again by making some changes in other fields incase your 
+    document contains other fields.
     */
     if (this.isNew) {
       const salt = await bcrypt.genSalt(10);
