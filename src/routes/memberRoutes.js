@@ -8,13 +8,18 @@ import {
   assignSeat,
   seatReserveById,
 } from "../controllers/memberController.js";
+import { upload } from "../middlewares/multer.middleware.js";
 
 const router = express.Router();
 
 router.get("/", getMembers);
 router.get("/:id", getMemberById);
 router.post("/", addMember);
-router.patch("/:id", updateMember);
+router.patch(
+  "/:id",
+  upload.fields([{ name: "profileImage", count: 1 }]),
+  updateMember
+);
 router.delete("/:id", removeMember);
 router.patch("/assignSeat/:id", assignSeat);
 router.get("/assignSeat/:id", seatReserveById);
