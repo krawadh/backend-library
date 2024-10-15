@@ -6,13 +6,14 @@ import {
   updateSeat,
   removeSeat,
 } from "../controllers/seatingController.js";
+import { verifyAccessToken } from "../utils/jwt.js";
 
 const router = express.Router();
 
-router.get("/", getSeats);
-router.get("/:id", getSeatById);
-router.post("/", addSeat);
-router.patch("/:id", updateSeat);
-router.delete("/:id", removeSeat);
+router.get("/", verifyAccessToken, getSeats);
+router.get("/:id", verifyAccessToken, getSeatById);
+router.post("/", verifyAccessToken, addSeat);
+router.patch("/:id", verifyAccessToken, updateSeat);
+router.delete("/:id", verifyAccessToken, removeSeat);
 
 export default router;

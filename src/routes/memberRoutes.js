@@ -14,15 +14,15 @@ import { verifyAccessToken } from "../utils/jwt.js";
 const router = express.Router();
 
 router.get("/", verifyAccessToken, getMembers);
-router.get("/:id", getMemberById);
-router.post("/", addMember);
+router.get("/:id", verifyAccessToken, getMemberById);
+router.post("/", verifyAccessToken, addMember);
 router.patch(
   "/:id",
   upload.fields([{ name: "profileImage", count: 1 }]),
   updateMember
 );
-router.delete("/:id", removeMember);
-router.patch("/assignSeat/:id", assignSeat);
-router.get("/assignSeat/:id", seatReserveById);
+router.delete("/:id", verifyAccessToken, removeMember);
+router.patch("/assignSeat/:id", verifyAccessToken, assignSeat);
+router.get("/assignSeat/:id", verifyAccessToken, seatReserveById);
 
 export default router;
