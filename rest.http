@@ -1,12 +1,12 @@
-GET http://localhost:3001
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDY2NjYsImV4cCI6MTcyNTIxMDI2NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.39XyU-q2tM-Ayp4OPcF7Hoy9X1ai45nikMTaKXWIvO8
+GET http://localhost:3000/
+#Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUyMDY2NjYsImV4cCI6MTcyNTIxMDI2NiwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0.39XyU-q2tM-Ayp4OPcF7Hoy9X1ai45nikMTaKXWIvO8
 
 ###Login Route
 POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "email": "krawadh6@gmail.com",
+  "email": "krawadh66@gmail.com",
   "password": "password",
     "role":"Admin"
 }
@@ -27,11 +27,12 @@ Content-Type: application/json
 }
 
 ###Refresh token Route
-POST http://localhost:3001/api/v1/auth/refresh-token
+
+GET https://localhost:3000/api/v1/auth/refresh-token
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjUwMzAyNjEsImV4cCI6MTc1NjU4Nzg2MSwiYXVkIjoiNjZkMTZjMzYyOTVlMGQ1MzhmZTk1ZGFiIn0._S7yzG_q7TPildGJfDSLyQopTH2X8NEUZioCAUAtAFg"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3Mjc1NDE3NDYsImV4cCI6MTczMDEzMzc0NiwiYXVkIjoiNjZmM2U3OWU5NmMwYmVjYmExYzhmNTM4In0.n1-eES4qKA6OvlwdkzfUhrU0Rm1myv8ap9aEBRL8OwU"
 }
 
 ###Logout Route

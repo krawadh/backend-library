@@ -27,10 +27,14 @@ const jwtService = {
     });
   },
   verifyAccessToken: (req, res, next) => {
-    if (!req.headers["authorization"]) return next(createError.Unauthorized());
-    const authHeader = req.headers["authorization"];
-    const bearerToken = authHeader.split(" ");
-    const token = bearerToken[1];
+    const token =
+      req.cookies?.accessToken ||
+      req.header("Authorization")?.replace("Bearer ", "");
+
+    if (!token) {
+      return next(createError.Unauthorized());
+    }
+
     JWT.verify(token, jwtAccessSecret, (err, payload) => {
       if (err) {
         const message =
@@ -71,18 +75,12 @@ const jwtService = {
   verifyRefreshToken: (refreshToken) => {
     return new Promise((resolve, reject) => {
       JWT.verify(refreshToken, jwtRefreshSecret, (err, payload) => {
-        if (err) return reject(createError.Unauthorized());
+        if (err)
+          return reject(
+            createError.Forbidden("Refresh token is expired or used")
+          );
         const userId = payload.aud;
 
-        // client.GET(userId, (err, result) => {
-        //   if (err) {
-        //     console.log(err.message);
-        //     reject(createError.InternalServerError());
-        //     return;
-        //   }
-        //   if (refreshToken === result) return resolve(userId);
-        //   reject(createError.Unauthorized());
-        // });
         resolve(userId);
       });
     });

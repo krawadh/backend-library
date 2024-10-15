@@ -9,10 +9,11 @@ import {
   seatReserveById,
 } from "../controllers/memberController.js";
 import { upload } from "../middlewares/multer.middleware.js";
+import { verifyAccessToken } from "../utils/jwt.js";
 
 const router = express.Router();
 
-router.get("/", getMembers);
+router.get("/", verifyAccessToken, getMembers);
 router.get("/:id", getMemberById);
 router.post("/", addMember);
 router.patch(

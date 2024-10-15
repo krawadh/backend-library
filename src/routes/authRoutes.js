@@ -7,6 +7,7 @@ import {
   updateProfile,
 } from "../controllers/authController.js";
 import { upload } from "../middlewares/multer.middleware.js";
+import { verifyAccessToken } from "../utils/jwt.js";
 //import authMiddleware from "../middlewares/authMiddleware";
 
 const router = Router();
@@ -19,11 +20,12 @@ router.post(
 router.post("/login", login);
 //router.post("/login", login);
 
-router.post("/refresh-token", refreshToken);
+router.get("/refresh-token", refreshToken);
 
-router.post("/logout", logout);
+router.get("/logout", logout);
 router.patch(
   "/update-profile",
+  verifyAccessToken,
   upload.fields([{ name: "profileImage", count: 1 }]),
   updateProfile
 );

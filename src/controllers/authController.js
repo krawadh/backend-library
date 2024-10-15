@@ -6,6 +6,7 @@ import {
   signRefreshToken,
   verifyRefreshToken,
 } from "../utils/jwt.js";
+import { User } from "../models/userModel.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -26,22 +27,12 @@ export const login = async (req, res, next) => {
     const { accessToken, refreshToken, user } = await AuthService.login(req);
     const options = {
       httpOnly: true,
-      secure: true,
-      sameSite: "strict",
+      secure: true, // Cookie is only sent over HTTPS
+      sameSite: "None",
     };
     res
       .status(200)
-      /*.cookie("accessToken", accessToken, {
-        maxAge: 1 * 24 * 60 * 60 * 1000, // 1day
-        httpsOnly: true,
-        sameSite: "strict",
-      })
-      .cookie("refreshToken", refreshToken, {
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        httpOnly: true,
-        sameSite: "strict",
-        secure: true, // Ensure this is true if using HTTPS
-      })*/
+
       .cookie("accessToken", accessToken, options)
       .cookie("refreshToken", refreshToken, options)
       .json({
@@ -64,28 +55,14 @@ export const refreshToken = async (req, res, next) => {
     const options = {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: "None",
     };
     res
       .status(200)
-      // .cookie("accessToken", accessToken, {
-      //   maxAge: 1 * 24 * 60 * 60 * 1000, // 1day
-      //   httpsOnly: true,
-      //   sameSite: "strict",
-      // })
-      // .cookie("refreshToken", refreshToken, {
-      //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      //   httpOnly: true,
-      //   sameSite: "strict",
-      //   secure: true, // Ensure this is true if using HTTPS
-      // })
+
       .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", refreshToken, options)
-      .json({
-        message: `Welcome back ${user.firstName} ${user.lastName}`,
-        user,
-        success: true,
-      });
+      //.cookie("refreshToken", refreshToken, options)
+      .json({ status: 200, message: `Access token refreshed`, success: true });
   } catch (error) {
     next(error);
   }

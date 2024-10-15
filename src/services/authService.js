@@ -10,10 +10,13 @@ import {
   verifyRefreshToken,
 } from "../utils/jwt.js";
 
+import { jwtAccessSecret } from "../config.js";
+
 import {
   destroyOnCloudinary,
   uploadOnCloudinary,
 } from "../utils/cloudinary.js";
+import { create } from "@hapi/joi/lib/ref.js";
 
 class AuthService {
   static async register(req) {
@@ -134,24 +137,36 @@ class AuthService {
 
   static async refreshToken(req) {
     try {
-      const { refreshToken } = req.body;
-      if (!refreshToken) throw createError.BadRequest();
+      const refreshToken = req.cookies.refreshToken || req.body.refreshToken;
+
+      if (!refreshToken) {
+        throw createError.Unauthorized("unauthorized request");
+      }
       const userId = await verifyRefreshToken(refreshToken);
       const user = await User.findById(userId);
 
-      if (!user) throw createError.NotFound();
+      if (!user) throw createError.Forbidden("Invalid refresh token");
 
+      if (refreshToken !== user?.refreshToken) {
+        throw createError.Forbidden("Refresh token is expired or used");
+      }
       const accessToken = await signAccessToken(userId);
       const refToken = await signRefreshToken(userId);
+
+      //new refresh token has update into user collection
+      // user.refreshToken = refToken;
+      // await user.save({ validateBeforeSave: false });
+
       return { accessToken: accessToken, refreshToken: refToken, user };
     } catch (error) {
+      //console.log("catch block---", error);
       throw error;
     }
   }
 
   static async logout(req) {
     try {
-      const { refreshToken, userId } = req.body;
+      const { userId } = req.body;
 
       // if (!refreshToken) throw createError.BadRequest();
       // const userId = await verifyRefreshToken(refreshToken);
@@ -177,7 +192,7 @@ class AuthService {
       // });
       return "";
     } catch (error) {
-      console.log(error);
+      console.log("catch error----", error);
       throw error;
     }
   }
